@@ -1,0 +1,38 @@
+###Make a dungeon-based game, and have users move through it. Incorporate traps, health, secret doors, and maybe fighting?
+###Direction system should be based on directions, not left and right.
+
+
+#Direction and movement functions. Keeps track of your position on a 9x9 grid which represents the room, and prevents you from moving
+outside the confines of the room (walls).
+
+x_pos = 4
+y_pos = 1
+def go(direction):
+    global x_pos
+    global y_pos
+    if direction == "North" and y_pos < 9:
+        y_pos = y_pos + 1
+    elif direction == "East" and x_pos < 9:
+        x_pos = x_pos + 1
+    elif direction == "South" and y_pos > -9:
+        y_pos = y_pos - 1
+    elif direction == "West" and x_pos > -9:
+        x_pos = x_pos - 1
+    elif direction == "North" and y_pos >= 9:
+        print("Oof! Wall.")
+    elif direction == "East" and x_pos >= 9:
+        print("Oof! Wall.")
+    elif direction == "South" and y_pos <= -9:
+        print("Oof! Wall.")
+    elif direction == "West" and x_pos <= -9:
+        print("Oof! Wall.")
+    else:
+        x = print("Thaaaat is not a direction. You move nowhere.")
+        return x
+    
+#Creating "backpack" for items, populating the map with items which automatically add themselves to the backpack.
+
+#Below doesn't work right now
+if x_pos == 5 and y_pos == 2:
+    print("You see a glistening knife on the ground. You bend and pick it up.")
+    
