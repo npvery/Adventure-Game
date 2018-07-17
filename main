@@ -4,13 +4,16 @@
 #Pending things to work on: 
 #How to use items to affect the environment
 #Remove items from the map once they've been picked up the first time
-#Add traps ("the floor squeaks ominously" to represent a section of floor that will cave in)
+  #Maybe use an "encounter" function. This would replace most of the body of the check function.
+  #Could add a line to destroy the item after the first encounter of an item - maybe just use a counter (if x=1, don't encounter object)
+#Add traps 
+  #"The floor squeaks ominously" to represent a section of floor that will cave in
 #Come up with puzzle to open the locked door to exit the chamber
 #Write an intro to the game: "You wake up to find yourself in a square chamber. You have the clothes on your back, 
-#and nothing in your pockets. You cannot see the walls of the room. There's a door on the northern wall."
+  #and nothing in your pockets. You cannot see the walls of the room. There's a door on the northern wall."
 
 #Direction and movement functions. Keeps track of your position on a 9x9 grid which represents the room, 
-#and prevents you from moving outside the confines of the room (walls).
+  #and prevents you from moving outside the confines of the room (walls).
 
 x_pos = 0
 y_pos = 0
