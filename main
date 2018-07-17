@@ -1,6 +1,13 @@
 ###Make a dungeon-based game, and have users move through it. Incorporate traps, health, secret doors, and maybe fighting?
 ###Direction system should be based on directions, not left and right.
 
+#Pending things to work on: 
+#How to use items to affect the environment
+#Remove items from the map once they've been picked up the first time
+#Add traps ("the floor squeaks ominously" to represent a section of floor that will cave in)
+#Come up with puzzle to open the locked door to exit the chamber
+#Write an intro to the game: "You wake up to find yourself in a square chamber. You have the clothes on your back, 
+#and nothing in your pockets. You cannot see the walls of the room. There's a door on the northern wall."
 
 #Direction and movement functions. Keeps track of your position on a 9x9 grid which represents the room, 
 #and prevents you from moving outside the confines of the room (walls).
@@ -18,9 +25,10 @@ west = "West"
 backpack = list()
 knife = "knife"
 jug = "jug"
-bow = "bow"
+bowframe = "bowframe"
 bowstring = "bowstring"
 quiver = "quiver"
+bow = "bow"
 
 #Function to add things to backpack.
 def add(item):
@@ -41,24 +49,45 @@ def check(x_check, y_check):
     y_check = y_pos
     if x_check == 5 and y_check == 2:
         print("You see a glistening knife on the ground. You bend and pick it up.")
-        add("knife")
+        add(knife)
         print("Backpack contents: ", backpack)
     elif x_check == -2 and y_check == 8:
         print("A one-gallon water jug. It's full. Into the backpack it goes.")
-        add("jug")
+        add(jug)
         print("Backpack contents: ", backpack)
     elif x_check == -8 and y_check == 4:
-        print("At your feet is the frame of a shortbow. No string or arrows. You pick it up anyway.")
-        add("bow")
+        if bowstring and quiver in backpack:
+            print("At your feet is the frame of a shortbow. You now have a usable bow and arrow.")
+            add(bow)
+            drop(bowframe)
+            drop(bowstring)
+            drop(quiver)
+        else:
+            print("At your feet is the frame of a shortbow. You pick it up.")
+        ###Change text if you already have the string or arrows?
+        add(bowframe)
         print("Backpack contents: ", backpack)
     elif x_check == 2 and y_check == -3:
-        print("A coil of bowstring, about three feet long. It looks tough and waxy.")
-        add("bowstring")
+        if bowframe and quiver in backpack:
+            print("A coil of bowstring, about three feet long. It looks tough and waxy. You now have a usable bow and arrow.")
+            add(bow)
+            drop(bowframe)
+            drop(bowstring)
+            drop(quiver)
+        else: 
+            print("A coil of bowstring, about three feet long. It looks tough and waxy.")
+        add(bowstring)
         print("Backpack contents: ", backpack)
     elif x_check == 6 and y_check == -5:
-        print("A quiver and some arrows. The quiver is a bit ragged, but the arrows are straight and sharp.")
-        add("quiver")
-        add("arrows")
+        if bowframe and bowstring in backpack:
+            print("A quiver and some arrows. The quiver is a bit ragged, but the arrows are straight and sharp. You now have a usable bow and arrow.")
+            add(bow)
+            drop(bowframe)
+            drop(bowstring)
+            drop(quiver)
+        else:
+            print("A quiver and some arrows. The quiver is a bit ragged, but the arrows are straight and sharp.")
+        add(quiver)
         print("Backpack contents: ", backpack)
         
 #The basic movement function of the game. Relies on a grid system and global variables to keep track
@@ -89,4 +118,3 @@ def go(direction):
     else:
         x = print("Thaaaat is not a direction. You move nowhere.")
         return x
-    
