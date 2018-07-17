@@ -1,0 +1,7 @@
+import random
+dict = {"knife":list((random.randrange(-9, 10), random.randrange(-9, 10)))}
+
+all_items = {}
+def add_item(item):
+    x = str(item)
+    all_items[x] = list((random.randrange(-9, 10), random.randrange(-9, 10)))
