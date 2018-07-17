@@ -2,22 +2,82 @@
 ###Direction system should be based on directions, not left and right.
 
 
-#Direction and movement functions. Keeps track of your position on a 9x9 grid which represents the room, and prevents you from moving
-outside the confines of the room (walls).
+#Direction and movement functions. Keeps track of your position on a 9x9 grid which represents the room, 
+#and prevents you from moving outside the confines of the room (walls).
 
-x_pos = 4
-y_pos = 1
+x_pos = 0
+y_pos = 0
+
+#Initialize direction variables as strings for ease of use during gameplay
+north = "North"
+east = "East"
+south = "South"
+west = "West"
+
+#Create backpack as list, and initialize variables for items as strings for ease of use during gameplay
+backpack = list()
+knife = "knife"
+jug = "jug"
+bow = "bow"
+bowstring = "bowstring"
+quiver = "quiver"
+
+#Function to add things to backpack.
+def add(item):
+    global backpack
+    item = str(item)
+    backpack.append(item)
+
+#Function to drop things from backpack. Don't currently have a reason to use this.
+def drop(item):
+    global backpack
+    item = str(item)
+    backpack.remove(item)
+
+#unction to check the square you're on for any items. This automatically adds anything that's there to
+#the backpack, and prints the backpack's new contents.
+def check(x_check, y_check):
+    x_check = x_pos
+    y_check = y_pos
+    if x_check == 5 and y_check == 2:
+        print("You see a glistening knife on the ground. You bend and pick it up.")
+        add("knife")
+        print("Backpack contents: ", backpack)
+    elif x_check == -2 and y_check == 8:
+        print("A one-gallon water jug. It's full. Into the backpack it goes.")
+        add("jug")
+        print("Backpack contents: ", backpack)
+    elif x_check == -8 and y_check == 4:
+        print("At your feet is the frame of a shortbow. No string or arrows. You pick it up anyway.")
+        add("bow")
+        print("Backpack contents: ", backpack)
+    elif x_check == 2 and y_check == -3:
+        print("A coil of bowstring, about three feet long. It looks tough and waxy.")
+        add("bowstring")
+        print("Backpack contents: ", backpack)
+    elif x_check == 6 and y_check == -5:
+        print("A quiver and some arrows. The quiver is a bit ragged, but the arrows are straight and sharp.")
+        add("quiver")
+        add("arrows")
+        print("Backpack contents: ", backpack)
+        
+#The basic movement function of the game. Relies on a grid system and global variables to keep track
+#of player's position.
 def go(direction):
     global x_pos
     global y_pos
     if direction == "North" and y_pos < 9:
         y_pos = y_pos + 1
+        check(x_pos, y_pos)
     elif direction == "East" and x_pos < 9:
         x_pos = x_pos + 1
+        check(x_pos, y_pos)
     elif direction == "South" and y_pos > -9:
         y_pos = y_pos - 1
+        check(x_pos, y_pos)
     elif direction == "West" and x_pos > -9:
         x_pos = x_pos - 1
+        check(x_pos, y_pos)
     elif direction == "North" and y_pos >= 9:
         print("Oof! Wall.")
     elif direction == "East" and x_pos >= 9:
@@ -29,10 +89,4 @@ def go(direction):
     else:
         x = print("Thaaaat is not a direction. You move nowhere.")
         return x
-    
-#Creating "backpack" for items, populating the map with items which automatically add themselves to the backpack.
-
-#Below doesn't work right now
-if x_pos == 5 and y_pos == 2:
-    print("You see a glistening knife on the ground. You bend and pick it up.")
     
